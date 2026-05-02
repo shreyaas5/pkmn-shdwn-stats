@@ -53,20 +53,16 @@ function App() {
         const data1 = await fetchUser(user1);
         setUserData1(data1);
         
-        // Find top format by Elo
-        const topFormatEntry = Object.entries(data1.ratings)
-          .sort(([, a]: any, [, b]: any) => (b.elo || 0) - (a.elo || 0))[0];
-        const topFormat = topFormatEntry ? topFormatEntry[0] : null;
-
-        // Fetch specifically for top format to get better graph data
-        const replayRes = await fetch(`https://replay.pokemonshowdown.com/search.json?user=${data1.userid}${topFormat ? `&format=${topFormat}` : ''}`);
+        // Fetch 50 general replays to ensure we find rivals like saltt2
+        const replayRes = await fetch(`https://replay.pokemonshowdown.com/search.json?user=${data1.userid}`);
         if (replayRes.ok) {
           const replayData = await replayRes.json();
           setReplays(replayData);
-          // Perform deep scan on the top format data (up to 20 matches)
-          performDeepScan(data1.userid, replayData.slice(0, 20));
+          // Perform deep scan on a larger sample (50 matches) for better rival detection
+          performDeepScan(data1.userid, replayData.slice(0, 50));
         }
       }
+
 
     } catch (err: any) {
       setError(err.message || 'An error occurred.');
@@ -99,9 +95,14 @@ function App() {
 
       // Process in reverse chronological order for streaks (though scanReplays is already latest first)
       // For the graph, we want chronological order, so we'll reverse the results array at the end
+      // Find top format to filter graph data
+      const topFormatEntry = Object.entries(userData1?.ratings || {}).sort(([, a]: any, [, b]: any) => (b.elo || 0) - (a.elo || 0))[0];
+      const topFormatId = topFormatEntry ? topFormatEntry[0] : '';
+
       results.forEach((data) => {
         if (!data) return;
         const log = data.log || '';
+        const formatId = data.formatid || '';
         const playerIsP1 = data.p1?.toLowerCase().replace(/ /g, '') === userid.toLowerCase();
         let opponent = playerIsP1 ? data.p2 : data.p1;
         if (opponent) {
@@ -113,16 +114,18 @@ function App() {
         const winner = winMatch ? winMatch[1].trim().toLowerCase().replace(/ /g, '') : '';
         const isWin = winner === userid.toLowerCase();
 
-        // Robust Elo Extraction (matches: |raw|username's rating: 1200 or |rating|1200)
-        // Try various common log formats
-        const ratingMatch = log.match(new RegExp(`${userid.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'s rating: (\\d+)`, 'i')) 
-                         || log.match(new RegExp(`\\|rating\\|\\d+\\|(\\d+)`, 'i'));
-        
-        if (ratingMatch) {
-          historicalElo.push(parseInt(ratingMatch[1]));
-        } else if (data.rating) {
-          historicalElo.push(data.rating);
+        // Only add to graph if it matches the Top Format
+        if (formatId === topFormatId) {
+          const ratingMatch = log.match(new RegExp(`${userid.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'s rating: (\\d+)`, 'i')) 
+                           || log.match(new RegExp(`\\|rating\\|\\d+\\|(\\d+)`, 'i'));
+          
+          if (ratingMatch) {
+            historicalElo.push(parseInt(ratingMatch[1]));
+          } else if (data.rating) {
+            historicalElo.push(data.rating);
+          }
         }
+
 
 
         if (isWin) {
