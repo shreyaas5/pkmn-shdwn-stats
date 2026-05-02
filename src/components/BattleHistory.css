@@ -1,0 +1,91 @@
+.battle-history-section {
+  width: 100%;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  border-left: 4px solid var(--accent-color);
+  padding-left: 1rem;
+}
+
+.battle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.battle-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.battle-item:hover {
+  transform: translateX(10px);
+  border-color: var(--accent-color);
+}
+
+.battle-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.battle-format {
+  font-weight: 600;
+  color: #f8fafc;
+}
+
+.battle-date {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.battle-result {
+  flex: 1;
+  text-align: center;
+}
+
+.winner-label {
+  font-size: 0.95rem;
+}
+
+.winner-label strong {
+  color: var(--success-color);
+}
+
+.winner-loading {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.view-replay-btn {
+  padding: 8px 16px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+}
+
+@media (max-width: 600px) {
+  .battle-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .battle-result {
+    text-align: left;
+  }
+  .view-replay-btn {
+    width: 100%;
+  }
+}

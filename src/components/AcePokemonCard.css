@@ -1,0 +1,96 @@
+.ace-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.ace-header {
+  text-align: center;
+}
+
+.ace-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.ace-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent-color);
+}
+
+.ace-visual {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ace-sprite {
+  width: 100px;
+  height: auto;
+  z-index: 2;
+  filter: drop-shadow(0 0 10px var(--accent-glow));
+}
+
+.ace-glow {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  background: var(--accent-color);
+  filter: blur(40px);
+  opacity: 0.3;
+  border-radius: 50%;
+}
+
+.ace-stats {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-top: 1px solid var(--glass-border);
+  padding-top: 1.5rem;
+}
+
+.ace-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  flex: 1;
+}
+
+.ace-stat-item .val {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.ace-stat-item .lab {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.style-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.style-icon {
+  color: var(--accent-color);
+}
+
+.style-icon.fire {
+  color: #f97316;
+}

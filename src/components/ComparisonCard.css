@@ -1,0 +1,60 @@
+.comparison-card {
+  gap: 1rem;
+}
+
+.text-center {
+  text-align: center;
+  border-bottom: 1px solid var(--glass-border);
+  padding-bottom: 0.5rem;
+}
+
+.comparison-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+}
+
+.p-stats {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.p1-stats {
+  align-items: center;
+}
+
+.p2-stats {
+  align-items: center;
+}
+
+.divider {
+  width: 1px;
+  background: var(--glass-border);
+  margin: 0 1rem;
+}
+
+.winner-elo {
+  font-weight: 800;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+.p1-winner {
+  color: #c4b5fd;
+  text-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
+}
+
+.p2-winner {
+  color: #bae6fd;
+  text-shadow: 0 0 15px rgba(56, 189, 248, 0.6);
+}
+
+.loser-elo {
+  opacity: 0.6;
+}
+
+.winner-gxe {
+  color: var(--success-color);
+}
