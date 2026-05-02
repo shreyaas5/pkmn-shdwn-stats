@@ -1,73 +1,55 @@
-# React + TypeScript + Vite
+# 🏆 Pokémon Showdown Stats Hub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, glassmorphic analytics dashboard for competitive Pokémon Showdown players. 
 
-Currently, two official plugins are available:
+![Project Banner](https://img.shields.io/badge/Pokémon-Stats%20Hub-blue?style=for-the-badge&logo=pokemon)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- 🧠 **Deep Scan Analytics:** Automatically identifies your **Signature Pokémon (Ace)** and determines your **Playstyle** (Hyper Offense, Stall, etc.) by analyzing your last 20 battles.
+- 🤝 **Head-to-Head (VS):** Compare your ratings and watch direct match history against friends with a dedicated rivalry tracker.
+- 📊 **Radar Proficiencies:** Visualizes your skill levels across different competitive formats using interactive spider graphs.
+- 🎨 **Elemental Themes:** Interactive theme switcher with **Fire, Water, Electric, Grass, Psychic, and Dark** modes, featuring custom glassmorphic glows.
+- 🌍 **Global Context:** Real-time ladder integration to show your distance from the Top 100 players in the world.
+- 📹 **Replay Integration:** Direct links to watch and analyze your past battles on the official Showdown replay servers.
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v16 or higher)
+- npm or yarn
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/shreyaas5/pkmn-shdwn-stats.git
+   cd pkmn-shdwn-stats
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🛠️ Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Frontend:** React 18, TypeScript, Vite
+- **Data:** Pokémon Showdown JSON API (Unofficial)
+- **Charts:** Recharts
+- **Icons:** Lucide React
+- **Styling:** Vanilla CSS (Custom Glassmorphism Design System)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📸 Deployment
+This project is configured for one-click deployment to **Vercel** or **Netlify**. Simply connect your GitHub repository and hit "Deploy"!
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Developed with ❤️ for the Pokémon Community.
