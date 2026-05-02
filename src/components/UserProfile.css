@@ -4,27 +4,21 @@
 }
 
 .profile-glass {
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 2rem;
 }
 
-.profile-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-}
-
 .avatar-placeholder {
-  width: 80px;
-  height: 80px;
+  width: 64px;
+  height: 64px;
   background: var(--accent-color);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 800;
   color: white;
   box-shadow: 0 0 20px var(--accent-glow);
@@ -33,7 +27,8 @@
 .user-info {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.25rem;
+  flex: 1;
 }
 
 .name-row {
@@ -43,16 +38,16 @@
 }
 
 .user-name {
-  font-size: 2.2rem;
+  font-size: 2rem;
   font-weight: 800;
   margin: 0;
 }
 
 .role-badge {
   background: rgba(255,255,255,0.1);
-  padding: 4px 12px;
+  padding: 4px 10px;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
   border: 1px solid var(--glass-border);
@@ -63,95 +58,32 @@
 .group-3 { color: #facc15; border-color: #facc15; }
 .group-4 { color: #ef4444; border-color: #ef4444; }
 
-.status-row {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.status-indicator {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-}
-
-.dot.offline { background-color: #64748b; }
-.dot.online { background-color: #10b981; box-shadow: 0 0 10px #10b981; }
-
 .join-info {
   color: var(--text-secondary);
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   opacity: 0.7;
 }
 
-.profile-stats {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-}
-
-.tour-card {
-  padding: 1rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-color: var(--accent-color);
-  background: rgba(255,255,255,0.03);
-}
-
-.tour-val {
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: var(--accent-color);
-}
-
-.tour-lab {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-}
-
-.action-buttons {
+.profile-links {
   display: flex;
   gap: 1rem;
 }
 
-.live-btn {
-  background: var(--danger-color) !important;
-  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4) !important;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.profile-btn {
+.secondary-btn {
   background: transparent !important;
   border: 1px solid var(--glass-border) !important;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  padding: 8px 16px !important;
+  font-size: 0.9rem !important;
 }
 
-.profile-btn:hover {
-  background: rgba(255,255,255,0.1) !important;
-}
-
-@media (max-width: 768px) {
-  .profile-stats {
+@media (max-width: 600px) {
+  .profile-glass {
     flex-direction: column;
-    align-items: stretch;
+    text-align: center;
+    align-items: center;
   }
-  .action-buttons {
+  .name-row {
     flex-direction: column;
+    gap: 0.5rem;
   }
 }
