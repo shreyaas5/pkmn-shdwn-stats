@@ -26,10 +26,14 @@ export interface ReplayData {
 
 export interface PlayerAnalytics {
   acePokemon: { name: string; count: number };
+  badLuckPokemon: { name: string; count: number };
   averageTurns: number;
   playstyle: 'Hyper Offense' | 'Offensive' | 'Balanced' | 'Defensive' | 'Stall';
   winStreak: number;
+  highestWinStreak: number;
+  rival: { username: string; count: number };
 }
+
 
 export interface LadderRank {
   userid: string;

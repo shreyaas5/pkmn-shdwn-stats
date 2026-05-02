@@ -1,0 +1,64 @@
+.advanced-analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.analytics-card {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  transition: transform 0.3s ease;
+}
+
+.analytics-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--accent-color);
+}
+
+.card-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-color);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.card-data {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-data h3 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.card-data .value {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin: 0.25rem 0;
+  color: var(--text-primary);
+}
+
+.card-data .label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
+
+/* Custom Highlight Glows */
+.highlight-streak { border-left: 4px solid #facc15; }
+.highlight-luck { border-left: 4px solid #ef4444; }
+.highlight-rival { border-left: 4px solid #6366f1; }
+.highlight-wl { border-left: 4px solid #10b981; }
+.highlight-rank { border-left: 4px solid #f97316; }

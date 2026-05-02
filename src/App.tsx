@@ -6,7 +6,9 @@ import { ComparisonGrid } from './components/ComparisonGrid';
 import { ThemeSwitcher } from './components/ThemeSwitcher';
 import { RadarStats } from './components/RadarStats';
 import { AcePokemonCard } from './components/AcePokemonCard';
+import { AdvancedAnalytics } from './components/AdvancedAnalytics';
 import type { ShowdownUserData, ReplayData, PlayerAnalytics } from './types';
+
 import { Sparkles } from 'lucide-react';
 
 function App() {
@@ -69,8 +71,11 @@ function App() {
     
     try {
       const pokemonCounts: Record<string, number> = {};
+      const pokemonLosses: Record<string, number> = {};
+      const opponents: Record<string, number> = {};
       let totalTurns = 0;
-      let winStreak = 0;
+      let currentWinStreak = 0;
+      let highestWinStreak = 0;
       let streakBroken = false;
 
       const results = await Promise.all(scanReplays.map(async (r) => {
@@ -80,36 +85,48 @@ function App() {
         } catch { return null; }
       }));
 
-      results.forEach((data, idx) => {
+      // Process in reverse chronological order for streaks (though scanReplays is already latest first)
+      results.forEach((data) => {
         if (!data) return;
         const log = data.log || '';
+        const playerIsP1 = data.p1?.toLowerCase().replace(/ /g, '') === userid.toLowerCase();
+        const opponent = playerIsP1 ? data.p2 : data.p1;
+        if (opponent) opponents[opponent] = (opponents[opponent] || 0) + 1;
         
-        // Count Win Streak (from latest to oldest)
         const winMatch = log.match(/\|win\|([^|\n\r]+)/);
         const winner = winMatch ? winMatch[1].trim().toLowerCase().replace(/ /g, '') : '';
-        if (!streakBroken) {
-          if (winner === userid.toLowerCase()) winStreak++;
-          else if (winner) streakBroken = true;
+        const isWin = winner === userid.toLowerCase();
+
+        if (isWin) {
+          currentWinStreak++;
+          if (currentWinStreak > highestWinStreak) highestWinStreak = currentWinStreak;
+        } else {
+          currentWinStreak = 0;
+          streakBroken = true;
         }
 
-        // Count Pokemon usage (p1/p2 switch logs)
-        const p1 = data.p1?.toLowerCase().replace(/ /g, '') === userid.toLowerCase() ? 'p1' : 'p2';
-        const switchRegex = new RegExp(`\\|switch\\|${p1}a: ([^|]+)\\|`, 'g');
+        const pTag = playerIsP1 ? 'p1' : 'p2';
+        const switchRegex = new RegExp(`\\|switch\\|${pTag}a: ([^|]+)\\|`, 'g');
         let match;
         while ((match = switchRegex.exec(log)) !== null) {
           const mon = match[1].split(',')[0];
           pokemonCounts[mon] = (pokemonCounts[mon] || 0) + 1;
+          if (!isWin) {
+            pokemonLosses[mon] = (pokemonLosses[mon] || 0) + 1;
+          }
         }
 
-        // Count Turns
         const turnMatches = log.match(/\|turn\|(\d+)/g);
         if (turnMatches) {
-          const lastTurn = parseInt(turnMatches[turnMatches.length - 1].split('|')[2]);
+          const lastTurnMatch = turnMatches[turnMatches.length - 1];
+          const lastTurn = parseInt(lastTurnMatch.match(/\d+/)?.[0] || '0');
           totalTurns += lastTurn;
         }
       });
 
       const sortedPokemon = Object.entries(pokemonCounts).sort((a, b) => b[1] - a[1]);
+      const sortedLosses = Object.entries(pokemonLosses).sort((a, b) => b[1] - a[1]);
+      const sortedOpponents = Object.entries(opponents).sort((a, b) => b[1] - a[1]);
       const avgTurns = Math.round(totalTurns / results.filter(r => r).length);
       
       let playstyle: PlayerAnalytics['playstyle'] = 'Balanced';
@@ -120,14 +137,18 @@ function App() {
 
       setAnalytics({
         acePokemon: sortedPokemon[0] ? { name: sortedPokemon[0][0], count: sortedPokemon[0][1] } : { name: 'Unknown', count: 0 },
+        badLuckPokemon: sortedLosses[0] ? { name: sortedLosses[0][0], count: sortedLosses[0][1] } : { name: 'None', count: 0 },
         averageTurns: avgTurns || 0,
         playstyle,
-        winStreak
+        winStreak: currentWinStreak,
+        highestWinStreak: highestWinStreak,
+        rival: sortedOpponents[0] ? { username: sortedOpponents[0][0], count: sortedOpponents[0][1] } : { username: 'None', count: 0 }
       });
     } finally {
       setIsScanning(false);
     }
   };
+
 
   return (
     <div className="app-container">
@@ -161,7 +182,10 @@ function App() {
             
             <div className="analytics-section">
               {analytics ? (
-                <AcePokemonCard analytics={analytics} />
+                <>
+                  <AcePokemonCard analytics={analytics} />
+                  <AdvancedAnalytics analytics={analytics} user={userData1} />
+                </>
               ) : (
                 <div className="glass-panel loading-placeholder">
                   {isScanning ? "Analyzing battle logs..." : "Search a user to see analytics"}
@@ -169,6 +193,7 @@ function App() {
               )}
               <RadarStats ratings={userData1.ratings} />
             </div>
+
 
             <StatsGrid ratings={userData1.ratings} />
           </div>
