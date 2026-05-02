@@ -32,7 +32,9 @@ export interface PlayerAnalytics {
   winStreak: number;
   highestWinStreak: number;
   rival: { username: string; count: number };
+  historicalElo: number[];
 }
+
 
 
 export interface LadderRank {

@@ -7,7 +7,9 @@ import { ThemeSwitcher } from './components/ThemeSwitcher';
 import { RadarStats } from './components/RadarStats';
 import { AcePokemonCard } from './components/AcePokemonCard';
 import { AdvancedAnalytics } from './components/AdvancedAnalytics';
+import { EloGraph } from './components/EloGraph';
 import type { ShowdownUserData, ReplayData, PlayerAnalytics } from './types';
+
 
 import { Sparkles } from 'lucide-react';
 
@@ -85,7 +87,10 @@ function App() {
         } catch { return null; }
       }));
 
+      const historicalElo: number[] = [];
+
       // Process in reverse chronological order for streaks (though scanReplays is already latest first)
+      // For the graph, we want chronological order, so we'll reverse the results array at the end
       results.forEach((data) => {
         if (!data) return;
         const log = data.log || '';
@@ -96,6 +101,13 @@ function App() {
         const winMatch = log.match(/\|win\|([^|\n\r]+)/);
         const winner = winMatch ? winMatch[1].trim().toLowerCase().replace(/ /g, '') : '';
         const isWin = winner === userid.toLowerCase();
+
+        // Extract Elo (look for rating lines like |raw|username's rating: 1200 &rarr; 1215)
+        const ratingRegex = new RegExp(`${userid.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'s rating: (\\d+)`, 'i');
+        const ratingMatch = log.match(ratingRegex);
+        if (ratingMatch) {
+          historicalElo.push(parseInt(ratingMatch[1]));
+        }
 
         if (isWin) {
           currentWinStreak++;
@@ -142,8 +154,10 @@ function App() {
         playstyle,
         winStreak: currentWinStreak,
         highestWinStreak: highestWinStreak,
-        rival: sortedOpponents[0] ? { username: sortedOpponents[0][0], count: sortedOpponents[0][1] } : { username: 'None', count: 0 }
+        rival: sortedOpponents[0] ? { username: sortedOpponents[0][0], count: sortedOpponents[0][1] } : { username: 'None', count: 0 },
+        historicalElo: historicalElo.reverse() // Reverse so it's chronological (left to right)
       });
+
     } finally {
       setIsScanning(false);
     }
@@ -185,8 +199,10 @@ function App() {
                 <>
                   <AcePokemonCard analytics={analytics} />
                   <AdvancedAnalytics analytics={analytics} user={userData1} />
+                  <EloGraph eloData={analytics.historicalElo} />
                 </>
               ) : (
+
                 <div className="glass-panel loading-placeholder">
                   {isScanning ? "Analyzing battle logs..." : "Search a user to see analytics"}
                 </div>
