@@ -40,20 +40,22 @@ export const AdvancedAnalytics: React.FC<AdvancedAnalyticsProps> = ({ analytics,
       </div>
 
       <div className="analytics-card glass-panel highlight-luck cursed-card">
-        <div className="card-icon"><Ghost size={24} /></div>
-        <div className="card-data">
+        <div className="card-icon jinx-icon"><Ghost size={32} /></div>
+        <div className="card-data cursed-data">
           <h3>The Cursed Partner</h3>
-          <div className="cursed-mon">
+          <div className="cursed-mon-layout">
             {analytics.badLuckPokemon.name !== 'None' && (
               <img src={getSpriteUrl(analytics.badLuckPokemon.name)} alt={analytics.badLuckPokemon.name} className="cursed-sprite" />
             )}
-            <div>
+            <div className="cursed-info">
               <p className="value">{analytics.badLuckPokemon.name}</p>
-              <span className="label">Lost {analytics.badLuckPokemon.count} matches together</span>
+              <span className="label danger-text">Avoid using this teammate!</span>
+              <span className="sub-label">Lost {analytics.badLuckPokemon.count} matches in last 100</span>
             </div>
           </div>
         </div>
       </div>
+
 
       <div className="analytics-card glass-panel highlight-rival">
         <div className="card-icon"><Swords size={24} /></div>

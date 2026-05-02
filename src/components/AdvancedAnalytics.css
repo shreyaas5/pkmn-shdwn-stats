@@ -56,27 +56,67 @@
   opacity: 0.7;
 }
 
-.cursed-mon {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.highlight-luck { 
+  border-left: 4px solid #ef4444; 
+  grid-column: span 2;
+  background: rgba(239, 68, 68, 0.03);
 }
 
 .cursed-sprite {
-  height: 50px;
+  height: 80px;
   filter: grayscale(0.5) contrast(1.2);
   image-rendering: pixelated;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.cursed-card:hover .cursed-sprite {
-  filter: grayscale(0) contrast(1);
-  transform: scale(1.1);
+.cursed-card:hover {
+  background: rgba(239, 68, 68, 0.07);
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.1);
+}
+
+.cursed-card .value {
+  font-size: 2.2rem;
+  color: #ef4444;
+}
+
+.highlight-streak { border-left: 4px solid #facc15; }
+.highlight-rival { border-left: 4px solid #6366f1; }
+
+.cursed-mon-layout {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.cursed-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.danger-text {
+  color: #ef4444 !important;
+  font-weight: 700;
+}
+
+.sub-label {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  opacity: 0.6;
+}
+
+.jinx-icon {
+  width: 60px;
+  height: 60px;
+  color: #ef4444;
 }
 
 /* Custom Highlight Glows */
-
-.highlight-streak { border-left: 4px solid #facc15; }
-.highlight-luck { border-left: 4px solid #ef4444; }
-.highlight-rival { border-left: 4px solid #6366f1; }
 .highlight-wl { border-left: 4px solid #10b981; }
 .highlight-rank { border-left: 4px solid #f97316; }
+
+@media (max-width: 900px) {
+  .highlight-luck {
+    grid-column: span 1;
+  }
+}
+
