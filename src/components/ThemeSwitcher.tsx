@@ -43,21 +43,21 @@ export const ThemeSwitcher: React.FC = () => {
 
       {isOpen && (
         <div className="theme-menu glass-panel animate-fade-in">
-          <div className="theme-grid">
+          <div className="theme-list">
             {themes.map((theme) => (
               <button
                 key={theme.id}
-                className={`theme-option-mini ${currentTheme === theme.id ? 'active' : ''}`}
+                className={`theme-option-vertical ${currentTheme === theme.id ? 'active' : ''}`}
                 onClick={() => {
                   setCurrentTheme(theme.id);
                   setIsOpen(false);
                 }}
-                title={theme.name}
               >
                 <span 
-                  className="theme-color-dot-large" 
+                  className="theme-dot" 
                   style={{ backgroundColor: theme.color }} 
                 />
+                <span className="theme-name">{theme.name}</span>
               </button>
             ))}
           </div>

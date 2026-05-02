@@ -1,5 +1,6 @@
 import React from 'react';
 import type { ShowdownUserData } from '../types';
+import { ExternalLink, Activity, Radio } from 'lucide-react';
 import './UserProfile.css';
 
 interface UserProfileProps {
@@ -9,8 +10,10 @@ interface UserProfileProps {
 export const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
   const getGroupRole = (group: number) => {
     switch (group) {
-      case 2: return 'Administrator';
-      case 1: return 'Moderator';
+      case 4: return '~ Admin';
+      case 3: return '& Leader';
+      case 2: return '@ Moderator';
+      case 1: return '% Helper';
       default: return 'Trainer';
     }
   };
@@ -29,9 +32,17 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
           <div className="user-info">
             <div className="name-row">
               <h2 className="user-name">{user.username}</h2>
-              <span className="badge role-badge">{getGroupRole(user.group)}</span>
+              <span className={`badge role-badge group-${user.group}`}>
+                {getGroupRole(user.group)}
+              </span>
             </div>
-            <p className="join-info">Joined: {registerDate}</p>
+            <div className="status-row">
+              <div className="status-indicator">
+                <span className="dot offline"></span>
+                <span className="status-text">Status: Unknown (Check Profile)</span>
+              </div>
+              <p className="join-info">Joined: {registerDate}</p>
+            </div>
           </div>
         </div>
 
@@ -47,8 +58,9 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
               target="_blank" 
               rel="noopener noreferrer"
               className="glass-btn live-btn"
+              title="Only shows if user is actively in a room"
             >
-              Watch Live
+              <Radio size={18} /> Watch Live
             </a>
             <a 
               href={`https://pokemonshowdown.com/users/${user.userid}`} 
@@ -56,7 +68,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
               rel="noopener noreferrer"
               className="glass-btn profile-btn"
             >
-              Official Profile
+              <ExternalLink size={18} /> Official Profile
             </a>
           </div>
         </div>

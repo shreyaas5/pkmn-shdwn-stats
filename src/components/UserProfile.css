@@ -49,17 +49,47 @@
 }
 
 .role-badge {
-  background: var(--accent-color);
+  background: rgba(255,255,255,0.1);
   padding: 4px 12px;
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
+  border: 1px solid var(--glass-border);
 }
+
+.group-1 { color: #56d364; border-color: #56d364; }
+.group-2 { color: #f97316; border-color: #f97316; }
+.group-3 { color: #facc15; border-color: #facc15; }
+.group-4 { color: #ef4444; border-color: #ef4444; }
+
+.status-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dot.offline { background-color: #64748b; }
+.dot.online { background-color: #10b981; box-shadow: 0 0 10px #10b981; }
 
 .join-info {
   color: var(--text-secondary);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  opacity: 0.7;
 }
 
 .profile-stats {
@@ -99,11 +129,17 @@
 .live-btn {
   background: var(--danger-color) !important;
   box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4) !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .profile-btn {
   background: transparent !important;
   border: 1px solid var(--glass-border) !important;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .profile-btn:hover {
