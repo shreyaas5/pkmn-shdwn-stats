@@ -53,15 +53,21 @@ function App() {
         const data1 = await fetchUser(user1);
         setUserData1(data1);
         
-        // Fetch 50 general replays to ensure we find rivals like saltt2
-        const replayRes = await fetch(`https://replay.pokemonshowdown.com/search.json?user=${data1.userid}`);
-        if (replayRes.ok) {
-          const replayData = await replayRes.json();
-          setReplays(replayData);
-          // Perform deep scan on a larger sample (50 matches) for better rival detection
-          performDeepScan(data1.userid, replayData.slice(0, 50));
-        }
+        // Fetch 100 general replays (2 pages of 50)
+        const [res1, res2] = await Promise.all([
+          fetch(`https://replay.pokemonshowdown.com/search.json?user=${data1.userid}&page=1`),
+          fetch(`https://replay.pokemonshowdown.com/search.json?user=${data1.userid}&page=2`)
+        ]);
+
+        const page1 = res1.ok ? await res1.json() : [];
+        const page2 = res2.ok ? await res2.json() : [];
+        const allReplays = [...page1, ...page2];
+        
+        setReplays(allReplays);
+        // Perform deep scan on the full 100 match sample
+        performDeepScan(data1.userid, allReplays);
       }
+
 
 
     } catch (err: any) {
