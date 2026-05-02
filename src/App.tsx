@@ -109,12 +109,22 @@ function App() {
         if (!data) return;
         const log = data.log || '';
         const formatId = data.formatid || '';
-        const playerIsP1 = data.p1?.toLowerCase().replace(/ /g, '') === userid.toLowerCase();
-        let opponent = playerIsP1 ? data.p2 : data.p1;
-        if (opponent) {
-          opponent = opponent.trim();
-          opponents[opponent] = (opponents[opponent] || 0) + 1;
+        const cleanUserid = userid.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const p1Clean = (data.p1 || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        const p2Clean = (data.p2 || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+        
+        const playerIsP1 = p1Clean === cleanUserid;
+        let opponentRaw = playerIsP1 ? data.p2 : data.p1;
+        
+        if (opponentRaw) {
+          const opponentClean = opponentRaw.toLowerCase().replace(/[^a-z0-9]/g, '');
+          // Store the original display name but count using the cleaned ID
+          if (!opponents[opponentClean]) {
+            opponents[opponentClean] = { name: opponentRaw.replace(/^[☆‽+@%&~#]/, ''), count: 0 };
+          }
+          opponents[opponentClean].count += 1;
         }
+
         
         const winMatch = log.match(/\|win\|([^|\n\r]+)/);
         const winner = winMatch ? winMatch[1].trim().toLowerCase().replace(/ /g, '') : '';
@@ -163,7 +173,7 @@ function App() {
 
       const sortedPokemon = Object.entries(pokemonCounts).sort((a, b) => b[1] - a[1]);
       const sortedLosses = Object.entries(pokemonLosses).sort((a, b) => b[1] - a[1]);
-      const sortedOpponents = Object.entries(opponents).sort((a, b) => b[1] - a[1]);
+      const sortedOpponents = Object.values(opponents).sort((a: any, b: any) => b.count - a.count);
       const avgTurns = Math.round(totalTurns / results.filter(r => r).length);
       
       let playstyle: PlayerAnalytics['playstyle'] = 'Balanced';
@@ -172,6 +182,7 @@ function App() {
       else if (avgTurns > 45) playstyle = 'Stall';
       else if (avgTurns > 35) playstyle = 'Defensive';
 
+
       setAnalytics({
         acePokemon: sortedPokemon[0] ? { name: sortedPokemon[0][0], count: sortedPokemon[0][1] } : { name: 'Unknown', count: 0 },
         badLuckPokemon: sortedLosses[0] ? { name: sortedLosses[0][0], count: sortedLosses[0][1] } : { name: 'None', count: 0 },
@@ -179,9 +190,10 @@ function App() {
         playstyle,
         winStreak: currentWinStreak,
         highestWinStreak: highestWinStreak,
-        rival: sortedOpponents[0] ? { username: sortedOpponents[0][0], count: sortedOpponents[0][1] } : { username: 'None', count: 0 },
-        historicalElo: historicalElo.reverse() // Reverse so it's chronological (left to right)
+        rival: sortedOpponents[0] ? { username: sortedOpponents[0].name, count: sortedOpponents[0].count } : { username: 'None', count: 0 },
+        historicalElo: historicalElo.reverse()
       });
+
 
     } finally {
       setIsScanning(false);
