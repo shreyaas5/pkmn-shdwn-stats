@@ -21,6 +21,7 @@ function App() {
   const [analytics, setAnalytics] = useState<PlayerAnalytics | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isScanning, setIsScanning] = useState(false);
+  const [scanProgress, setScanProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
 
   const fetchUser = async (username: string): Promise<ShowdownUserData> => {
@@ -90,12 +91,30 @@ function App() {
       let highestWinStreak = 0;
       let streakBroken = false;
 
-      const results = await Promise.all(scanReplays.map(async (r) => {
-        try {
-          const res = await fetch(`https://replay.pokemonshowdown.com/${r.id}.json`);
-          return res.ok ? await res.json() : null;
-        } catch { return null; }
-      }));
+      const results: any[] = [];
+      const batchSize = 5;
+      
+      for (let i = 0; i < scanReplays.length; i += batchSize) {
+        setScanProgress(Math.round((i / scanReplays.length) * 100));
+        const batch = scanReplays.slice(i, i + batchSize);
+
+        const batchResults = await Promise.all(batch.map(async (r) => {
+          try {
+            const res = await fetch(`https://replay.pokemonshowdown.com/${r.id}.json`);
+            if (res.status === 429) {
+              console.warn("Rate limited by Showdown");
+              return null;
+            }
+            return res.ok ? await res.json() : null;
+          } catch { return null; }
+        }));
+        results.push(...batchResults);
+        // Small delay between batches
+        if (i + batchSize < scanReplays.length) {
+          await new Promise(resolve => setTimeout(resolve, 300));
+        }
+      }
+
 
       const historicalElo: number[] = [];
 
@@ -239,11 +258,13 @@ function App() {
                   <EloGraph eloData={analytics.historicalElo} />
                 </>
               ) : (
-
                 <div className="glass-panel loading-placeholder">
-                  {isScanning ? "Analyzing battle logs..." : "Search a user to see analytics"}
+                  {isScanning 
+                    ? `Analyzing logs... (${scanProgress}%)` 
+                    : "Search a user to see analytics"}
                 </div>
               )}
+
               <RadarStats ratings={userData1.ratings} />
             </div>
 
