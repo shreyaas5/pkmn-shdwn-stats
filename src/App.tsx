@@ -177,9 +177,22 @@ function App() {
         {isCompareMode && userData1 && userData2 && !isLoading && (
           <ComparisonGrid user1={userData1} user2={userData2} replays={replays} />
         )}
-      </main>
+      <footer className="footer animate-fade-in">
+        <div className="footer-content">
+          <p className="credit">Created by <span className="highlight">Shreyaas</span></p>
+          <div className="footer-links">
+            <a href="https://github.com/shreyaas5/pkmn-shdwn-stats" target="_blank" rel="noopener noreferrer" className="github-link">
+              GitHub Repo
+            </a>
+          </div>
+          <p className="disclaimer">
+            This project is an unofficial fan tool. All Pokémon data and replay content are properties of Pokémon Showdown and Nintendo.
+          </p>
+        </div>
+      </footer>
     </div>
   );
 }
+
 
 export default App;
