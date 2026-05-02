@@ -52,14 +52,22 @@ function App() {
       } else {
         const data1 = await fetchUser(user1);
         setUserData1(data1);
-        const replayRes = await fetch(`https://replay.pokemonshowdown.com/search.json?user=${data1.userid}`);
+        
+        // Find top format by Elo
+        const topFormatEntry = Object.entries(data1.ratings)
+          .sort(([, a]: any, [, b]: any) => (b.elo || 0) - (a.elo || 0))[0];
+        const topFormat = topFormatEntry ? topFormatEntry[0] : null;
+
+        // Fetch specifically for top format to get better graph data
+        const replayRes = await fetch(`https://replay.pokemonshowdown.com/search.json?user=${data1.userid}${topFormat ? `&format=${topFormat}` : ''}`);
         if (replayRes.ok) {
           const replayData = await replayRes.json();
           setReplays(replayData);
-          // Auto-trigger a small scan for the single user
-          performDeepScan(data1.userid, replayData.slice(0, 10));
+          // Perform deep scan on the top format data (up to 20 matches)
+          performDeepScan(data1.userid, replayData.slice(0, 20));
         }
       }
+
     } catch (err: any) {
       setError(err.message || 'An error occurred.');
     } finally {
@@ -95,19 +103,27 @@ function App() {
         if (!data) return;
         const log = data.log || '';
         const playerIsP1 = data.p1?.toLowerCase().replace(/ /g, '') === userid.toLowerCase();
-        const opponent = playerIsP1 ? data.p2 : data.p1;
-        if (opponent) opponents[opponent] = (opponents[opponent] || 0) + 1;
+        let opponent = playerIsP1 ? data.p2 : data.p1;
+        if (opponent) {
+          opponent = opponent.trim();
+          opponents[opponent] = (opponents[opponent] || 0) + 1;
+        }
         
         const winMatch = log.match(/\|win\|([^|\n\r]+)/);
         const winner = winMatch ? winMatch[1].trim().toLowerCase().replace(/ /g, '') : '';
         const isWin = winner === userid.toLowerCase();
 
-        // Extract Elo (look for rating lines like |raw|username's rating: 1200 &rarr; 1215)
-        const ratingRegex = new RegExp(`${userid.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'s rating: (\\d+)`, 'i');
-        const ratingMatch = log.match(ratingRegex);
+        // Robust Elo Extraction (matches: |raw|username's rating: 1200 or |rating|1200)
+        // Try various common log formats
+        const ratingMatch = log.match(new RegExp(`${userid.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}'s rating: (\\d+)`, 'i')) 
+                         || log.match(new RegExp(`\\|rating\\|\\d+\\|(\\d+)`, 'i'));
+        
         if (ratingMatch) {
           historicalElo.push(parseInt(ratingMatch[1]));
+        } else if (data.rating) {
+          historicalElo.push(data.rating);
         }
+
 
         if (isWin) {
           currentWinStreak++;
