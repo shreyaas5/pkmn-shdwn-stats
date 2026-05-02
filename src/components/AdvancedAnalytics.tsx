@@ -1,6 +1,7 @@
 import React from 'react';
 import type { PlayerAnalytics, ShowdownUserData } from '../types';
-import { Trophy, Ghost, Swords, Zap, Hash } from 'lucide-react';
+import { Trophy, Ghost, Zap, Hash } from 'lucide-react';
+
 import './AdvancedAnalytics.css';
 
 interface AdvancedAnalyticsProps {

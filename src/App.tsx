@@ -85,11 +85,11 @@ function App() {
     try {
       const pokemonCounts: Record<string, number> = {};
       const pokemonLosses: Record<string, number> = {};
-      const opponents: Record<string, number> = {};
+      const opponents: Record<string, any> = {};
       let totalTurns = 0;
       let currentWinStreak = 0;
       let highestWinStreak = 0;
-      let streakBroken = false;
+
 
       const results: any[] = [];
       const batchSize = 5;
@@ -130,9 +130,9 @@ function App() {
         const formatId = data.formatid || '';
         const cleanUserid = userid.toLowerCase().replace(/[^a-z0-9]/g, '');
         const p1Clean = (data.p1 || '').toLowerCase().replace(/[^a-z0-9]/g, '');
-        const p2Clean = (data.p2 || '').toLowerCase().replace(/[^a-z0-9]/g, '');
         
         const playerIsP1 = p1Clean === cleanUserid;
+
         let opponentRaw = playerIsP1 ? data.p2 : data.p1;
         
         if (opponentRaw) {
@@ -168,8 +168,8 @@ function App() {
           if (currentWinStreak > highestWinStreak) highestWinStreak = currentWinStreak;
         } else {
           currentWinStreak = 0;
-          streakBroken = true;
         }
+
 
         const pTag = playerIsP1 ? 'p1' : 'p2';
         const switchRegex = new RegExp(`\\|switch\\|${pTag}a: ([^|]+)\\|`, 'g');
