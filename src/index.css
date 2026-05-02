@@ -14,45 +14,25 @@
   --card-gradient: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(56, 189, 248, 0.1) 100%);
 }
 
-[data-theme='fire'] {
-  --bg-color: #1a0b0b;
-  --accent-color: #f97316;
-  --accent-glow: rgba(249, 115, 22, 0.5);
-  --accent-color-hover: #ea580c;
-  --card-gradient: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%);
-}
+[data-theme='fire'] { --bg-color: #1a0b0b; --accent-color: #EE8130; --accent-glow: rgba(238, 129, 48, 0.5); --accent-color-hover: #D36C20; --card-gradient: linear-gradient(135deg, rgba(238, 129, 48, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%); }
+[data-theme='water'] { --bg-color: #08121e; --accent-color: #6390F0; --accent-glow: rgba(99, 144, 240, 0.5); --accent-color-hover: #4F78D0; --card-gradient: linear-gradient(135deg, rgba(99, 144, 240, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%); }
+[data-theme='electric'] { --bg-color: #17170a; --accent-color: #F7D02C; --accent-glow: rgba(247, 208, 44, 0.5); --accent-color-hover: #DDBA27; --card-gradient: linear-gradient(135deg, rgba(247, 208, 44, 0.1) 0%, rgba(250, 204, 21, 0.1) 100%); }
+[data-theme='grass'] { --bg-color: #0b1a0b; --accent-color: #7AC74C; --accent-glow: rgba(122, 199, 76, 0.5); --accent-color-hover: #63A23D; --card-gradient: linear-gradient(135deg, rgba(122, 199, 76, 0.1) 0%, rgba(132, 204, 22, 0.1) 100%); }
+[data-theme='ice'] { --bg-color: #0b1a1a; --accent-color: #96D9D2; --accent-glow: rgba(150, 217, 210, 0.5); --accent-color-hover: #7BC1B8; --card-gradient: linear-gradient(135deg, rgba(150, 217, 210, 0.1) 0%, rgba(56, 189, 248, 0.1) 100%); }
+[data-theme='fighting'] { --bg-color: #1a0808; --accent-color: #C22E28; --accent-glow: rgba(194, 46, 40, 0.5); --accent-color-hover: #9F2521; --card-gradient: linear-gradient(135deg, rgba(194, 46, 40, 0.1) 0%, rgba(127, 29, 29, 0.1) 100%); }
+[data-theme='poison'] { --bg-color: #130a1a; --accent-color: #A33EA1; --accent-glow: rgba(163, 62, 161, 0.5); --accent-color-hover: #8B3589; --card-gradient: linear-gradient(135deg, rgba(163, 62, 161, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%); }
+[data-theme='ground'] { --bg-color: #1a150b; --accent-color: #E2BF65; --accent-glow: rgba(226, 191, 101, 0.5); --accent-color-hover: #C5A454; --card-gradient: linear-gradient(135deg, rgba(226, 191, 101, 0.1) 0%, rgba(234, 179, 8, 0.1) 100%); }
+[data-theme='flying'] { --bg-color: #130b1a; --accent-color: #A98FF3; --accent-glow: rgba(169, 143, 243, 0.5); --accent-color-hover: #8D74D8; --card-gradient: linear-gradient(135deg, rgba(169, 143, 243, 0.1) 0%, rgba(129, 140, 248, 0.1) 100%); }
+[data-theme='psychic'] { --bg-color: #1a0b13; --accent-color: #F95587; --accent-glow: rgba(249, 85, 135, 0.5); --accent-color-hover: #D64673; --card-gradient: linear-gradient(135deg, rgba(249, 85, 135, 0.1) 0%, rgba(244, 114, 182, 0.1) 100%); }
+[data-theme='bug'] { --bg-color: #131a0b; --accent-color: #A6B91A; --accent-glow: rgba(166, 185, 26, 0.5); --accent-color-hover: #8A9A15; --card-gradient: linear-gradient(135deg, rgba(166, 185, 26, 0.1) 0%, rgba(101, 163, 13, 0.1) 100%); }
+[data-theme='rock'] { --bg-color: #1a170b; --accent-color: #B6A136; --accent-glow: rgba(182, 161, 54, 0.5); --accent-color-hover: #98862D; --card-gradient: linear-gradient(135deg, rgba(182, 161, 54, 0.1) 0%, rgba(161, 98, 7, 0.1) 100%); }
+[data-theme='ghost'] { --bg-color: #0d0a1a; --accent-color: #735797; --accent-glow: rgba(115, 87, 151, 0.5); --accent-color-hover: #5F487D; --card-gradient: linear-gradient(135deg, rgba(115, 87, 151, 0.1) 0%, rgba(76, 29, 149, 0.1) 100%); }
+[data-theme='dragon'] { --bg-color: #0b0a1a; --accent-color: #6F35FC; --accent-glow: rgba(111, 53, 252, 0.5); --accent-color-hover: #5B2BD1; --card-gradient: linear-gradient(135deg, rgba(111, 53, 252, 0.1) 0%, rgba(30, 64, 175, 0.1) 100%); }
+[data-theme='steel'] { --bg-color: #12121e; --accent-color: #B7B7CE; --accent-glow: rgba(183, 183, 206, 0.5); --accent-color-hover: #9B9BB6; --card-gradient: linear-gradient(135deg, rgba(183, 183, 206, 0.1) 0%, rgba(100, 116, 139, 0.1) 100%); }
+[data-theme='fairy'] { --bg-color: #1a0d17; --accent-color: #D685AD; --accent-glow: rgba(214, 133, 173, 0.5); --accent-color-hover: #B87295; --card-gradient: linear-gradient(135deg, rgba(214, 133, 173, 0.1) 0%, rgba(219, 39, 119, 0.1) 100%); }
+[data-theme='normal'] { --bg-color: #1a1a17; --accent-color: #A8A77A; --accent-glow: rgba(168, 167, 122, 0.5); --accent-color-hover: #8D8C66; --card-gradient: linear-gradient(135deg, rgba(168, 167, 122, 0.1) 0%, rgba(113, 113, 122, 0.1) 100%); }
+[data-theme='dark'] { --bg-color: #0d0d0d; --accent-color: #705746; --accent-glow: rgba(112, 87, 70, 0.5); --accent-color-hover: #5D483A; --card-gradient: linear-gradient(135deg, rgba(112, 87, 70, 0.1) 0%, rgba(38, 38, 38, 0.1) 100%); }
 
-[data-theme='water'] {
-  --bg-color: #08121e;
-  --accent-color: #3b82f6;
-  --accent-glow: rgba(59, 130, 246, 0.5);
-  --accent-color-hover: #2563eb;
-  --card-gradient: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);
-}
-
-[data-theme='electric'] {
-  --bg-color: #17170a;
-  --accent-color: #eab308;
-  --accent-glow: rgba(234, 179, 8, 0.5);
-  --accent-color-hover: #ca8a04;
-  --card-gradient: linear-gradient(135deg, rgba(234, 179, 8, 0.1) 0%, rgba(250, 204, 21, 0.1) 100%);
-}
-
-[data-theme='grass'] {
-  --bg-color: #0b1a0b;
-  --accent-color: #22c55e;
-  --accent-glow: rgba(34, 197, 94, 0.5);
-  --accent-color-hover: #16a34a;
-  --card-gradient: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(132, 204, 22, 0.1) 100%);
-}
-
-[data-theme='dark'] {
-  --bg-color: #020617;
-  --accent-color: #6366f1;
-  --accent-glow: rgba(99, 102, 241, 0.5);
-  --accent-color-hover: #4f46e5;
-  --card-gradient: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
-}
 
 * {
   box-sizing: border-box;

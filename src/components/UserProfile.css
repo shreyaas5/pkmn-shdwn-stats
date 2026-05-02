@@ -1,65 +1,121 @@
-.user-profile {
+.user-profile-container {
+  width: 100%;
+  margin-bottom: 2rem;
+}
+
+.profile-glass {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.profile-header {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  padding: 2rem;
-  width: 100%;
+  gap: 1.5rem;
 }
 
 .avatar-placeholder {
   width: 80px;
   height: 80px;
+  background: var(--accent-color);
   border-radius: 50%;
-  background: linear-gradient(135deg, #8b5cf6, #38bdf8);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2.5rem;
-  font-weight: 700;
+  font-weight: 800;
   color: white;
-  box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 
-.user-details h2 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-}
-
-.user-meta {
+.user-info {
   display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.badge {
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  backdrop-filter: blur(4px);
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.user-name {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin: 0;
 }
 
 .role-badge {
-  background: rgba(139, 92, 246, 0.2);
-  border: 1px solid rgba(139, 92, 246, 0.4);
-  color: #c4b5fd;
+  background: var(--accent-color);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.date-badge {
-  background: rgba(56, 189, 248, 0.2);
-  border: 1px solid rgba(56, 189, 248, 0.4);
-  color: #bae6fd;
+.join-info {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
-@media (max-width: 600px) {
-  .user-profile {
+.profile-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.tour-card {
+  padding: 1rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-color: var(--accent-color);
+  background: rgba(255,255,255,0.03);
+}
+
+.tour-val {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--accent-color);
+}
+
+.tour-lab {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+}
+
+.live-btn {
+  background: var(--danger-color) !important;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4) !important;
+}
+
+.profile-btn {
+  background: transparent !important;
+  border: 1px solid var(--glass-border) !important;
+}
+
+.profile-btn:hover {
+  background: rgba(255,255,255,0.1) !important;
+}
+
+@media (max-width: 768px) {
+  .profile-stats {
     flex-direction: column;
-    text-align: center;
-    gap: 1rem;
+    align-items: stretch;
   }
-  
-  .user-meta {
-    justify-content: center;
+  .action-buttons {
+    flex-direction: column;
   }
 }

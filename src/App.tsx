@@ -177,7 +177,9 @@ function App() {
         {isCompareMode && userData1 && userData2 && !isLoading && (
           <ComparisonGrid user1={userData1} user2={userData2} replays={replays} />
         )}
+      </main>
       <footer className="footer animate-fade-in">
+
         <div className="footer-content">
           <p className="credit">Created by <span className="highlight">Shreyaas</span></p>
           <div className="footer-links">
