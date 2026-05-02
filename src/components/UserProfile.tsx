@@ -9,12 +9,13 @@ interface UserProfileProps {
 export const UserProfile: React.FC<UserProfileProps> = ({ user }) => {
   const getGroupRole = (group: number) => {
     switch (group) {
-      case 4: return '~ Admin';
-      case 3: return '& Leader';
-      case 2: return '@ Moderator';
-      case 1: return '% Helper';
+      case 4: return 'Administrator';
+      case 3: return 'Leader';
+      case 2: return 'Moderator';
+      case 1: return 'Active Trainer';
       default: return 'Trainer';
     }
+
   };
 
   const registerDate = user.registertime > 0 

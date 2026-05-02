@@ -57,21 +57,9 @@ export const AdvancedAnalytics: React.FC<AdvancedAnalyticsProps> = ({ analytics,
       </div>
 
 
-      <div className="analytics-card glass-panel highlight-rival">
-        <div className="card-icon"><Swords size={24} /></div>
-        <div className="card-data">
-          <h3>Arch Rival</h3>
-          <p className="value">{analytics.rival.count > 1 ? analytics.rival.username : 'None'}</p>
-          <span className="label">
-            {analytics.rival.count > 1 
-              ? `Faced ${analytics.rival.count} times recently` 
-              : 'No repeat opponents found'}
-          </span>
-        </div>
-      </div>
-
 
       <div className="analytics-card glass-panel highlight-wl">
+
         <div className="card-icon"><Hash size={24} /></div>
         <div className="card-data">
           <h3>Master WL%</h3>
